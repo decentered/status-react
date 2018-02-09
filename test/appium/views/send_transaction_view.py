@@ -72,6 +72,12 @@ class EnterRecipientAddressInput(BaseEditBox):
         self.locator = self.Locator.xpath_selector("//*[@text='Enter recipient address']")
 
 
+class RecentRecipientsButton(BaseButton):
+    def __init__(self, driver):
+        super(RecentRecipientsButton, self).__init__(driver)
+        self.locator = self.Locator.xpath_selector("//*[@text='Recent recipients']")
+
+
 class SendTransactionView(BaseView):
     def __init__(self, driver):
         super(SendTransactionView, self).__init__(driver)
@@ -80,6 +86,7 @@ class SendTransactionView(BaseView):
         self.enter_contact_code_button = EnterContactCodeButton(self.driver)
         self.enter_recipient_address_input = EnterRecipientAddressInput(self.driver)
         self.first_recipient_button = FirstRecipient(self.driver)
+        self.recent_recipients_button = RecentRecipientsButton(self.driver)
 
         self.amount_edit_box = AmountEditBox(self.driver)
         self.sign_transaction_button = SignTransactionButton(self.driver)

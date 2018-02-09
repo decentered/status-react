@@ -68,6 +68,12 @@ class UsdTotalValueText(BaseText):
         self.locator = self.Locator.xpath_selector("//*[@text='USD']/../android.widget.TextView[1]")
 
 
+class SendTransactionRequestButton(BaseButton):
+    def __init__(self, driver):
+        super(SendTransactionRequestButton, self).__init__(driver)
+        self.locator = self.Locator.xpath_selector("//*[@text='SEND A TRANSACTION REQUEST']")
+
+
 class WalletView(BaseView):
     def __init__(self, driver):
         super(WalletView, self).__init__(driver)
@@ -77,6 +83,8 @@ class WalletView(BaseView):
         self.transactions_button = TransactionsButton(self.driver)
         self.eth_asset = EthAssetText(self.driver)
         self.usd_total_value = UsdTotalValueText(self.driver)
+
+        self.send_transaction_request = SendTransactionRequestButton(self.driver)
         self.request_button = RequestButton(self.driver)
 
         self.send_request_button = SendRequestButton(self.driver)

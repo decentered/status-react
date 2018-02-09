@@ -28,14 +28,19 @@ class TestWallet(SingleDeviceTestCase):
         home_view = console_view.get_home_view()
         recipient_key = transaction_users_wallet['B_USER']['public_key']
         home_view.add_contact(recipient_key)
-        home_view.back_button.click(times_to_click=2)
+        home_view.get_back_to_home_view()
         wallet_view = home_view.wallet_button.click()
         send_transaction_view = wallet_view.request_button.click()
+        wallet_view.send_transaction_request.click()
         send_transaction_view.amount_edit_box.scroll_to_element()
         send_transaction_view.amount_edit_box.send_keys('0.1')
+        send_transaction_view.chose_recipient_button.click()
+        send_transaction_view.recent_recipients_button.click()
+        recipient = send_transaction_view.element_by_text('Jarrad')
+        recipient.click()
         wallet_view.send_request_button.click()
-        user_chat = home_view.get_chat_with_user(transaction_users_wallet['B_USER']['username']).click()
-        user_chat.find_text_part('Requesting  0.1 ETH')
+        chat_view = wallet_view.get_chat_view()
+        chat_view.find_text_part('Requesting  0.1 ETH')
 
     @pytest.mark.parametrize("test, recipient, sender", [('sign_now', 'A_USER', 'B_USER'),
                                                          ('sign_later', 'B_USER', 'A_USER')],
@@ -50,7 +55,7 @@ class TestWallet(SingleDeviceTestCase):
         recipient_address = transaction_users_wallet[recipient]['address']
         initial_balance_recipient = api_requests.get_balance(recipient_address)
         home_view.add_contact(recipient_key)
-        home_view.back_button.click(times_to_click=2)
+        home_view.get_back_to_home_view()
         wallet_view = home_view.wallet_button.click()
         send_transaction = wallet_view.send_button.click()
         send_transaction.amount_edit_box.click()

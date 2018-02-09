@@ -135,8 +135,7 @@ class BaseView(object):
         self.driver = driver
 
         self.home_button = HomeButton(self.driver)
-        self.button = WalletButton(self.driver)
-        self.wallet_button = self.button
+        self.wallet_button = WalletButton(self.driver)
         self.profile_button = ProfileButton(self.driver)
 
         self.yes_button = YesButton(self.driver)
@@ -194,7 +193,7 @@ class BaseView(object):
         element.locator = element.Locator.xpath_selector('//*[contains(@text, "' + text + '")]')
         return element.wait_for_element(wait_time)
 
-    def element_by_text(self, text, element_type='base'):
+    def element_by_text(self, text, element_type='button'):
         info("Looking for an element by text: '%s'" % text)
         element = self.element_types[element_type](self.driver)
         element.locator = element.Locator.xpath_selector('//*[@text="' + text + '"]')
